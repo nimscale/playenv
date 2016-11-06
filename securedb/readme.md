@@ -1,0 +1,1 @@
+libsodium compiled for osx
