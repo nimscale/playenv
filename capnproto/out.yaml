@@ -1,0 +1,28 @@
+%YAML 1.2
+%TAG !n! tag:nimyaml.org,2016:
+--- !n!custom:Job:ObjectType 
+runKey: !n!nil:string ""
+actorName: this is a test
+actionName: sasa
+actorFQDN: !n!nil:string ""
+serviceName: !n!nil:string ""
+actionKey: !n!nil:string ""
+stateChanges: !n!nil:seq ""
+logs: 
+    - 
+        epoch: 2323
+        log: alog message
+        level: 0
+        category: out
+        tags: !n!nil:string ""
+repoKey: !n!nil:string ""
+serviceKey: !n!nil:string ""
+argsData: !n!nil:string ""
+args: !n!nil:string ""
+state: new
+result: !n!nil:string ""
+lastModDate: 0
+simulate: n
+debug: n
+profile: n
+profileData: !n!nil:string ""
