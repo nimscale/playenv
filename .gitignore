@@ -3,3 +3,4 @@ nimcache/
 *.pub
 *.db
 local.db/
+*.so
