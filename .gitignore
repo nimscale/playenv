@@ -4,3 +4,5 @@ nimcache/
 *.db
 local.db/
 *.so
+*.yaml
+*.json
