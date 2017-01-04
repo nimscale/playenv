@@ -1,24 +1,45 @@
-import JobsModel
-# import nimscale.json
-# import os
 
-var jobs=JobsModel.newJobsDB()
+import db_sqlite
+import subexes
 
-var job1=JobsModel.newJob()
+type
+  MemDB* = ref object
+    db: db_sqlite.DbConn
 
-job1.actorName="this is a test"
-job1.actionName="sasa"
+proc create*(): MemDB=
+    var memdb = MemDB()
+    # memdb.db=open(":memory:", nil, nil, nil)
+    memdb.db=open("/tmp/jobs.db", nil, nil, nil)
+    result = memdb
 
-JobsModel.saveJob(jobs,job1)
+proc destroy*(memdb:MemDB, name:string)=
+    memdb.db.exec(sql("Drop table if exists " & name & ";"))
+
+proc init*(memdb:MemDB, name:string, sqlstr:string, indexes:seq[string])=
+    #INPUT SSOMETHING LIKE:
+    #          Id    VARCHAR(10) PRIMARY KEY,
+    #          Name  VARCHAR(200) NOT NULL,
+    #          i     INT(11),
+    #          f     DECIMAL(18,10)
+    destroy(memdb,name)
+    var sqlstr2 = subex"""
+    create table $1 (
+    $2
+    );"""%(@[name,sqlstr])
+    memdb.db.exec(sql(sqlstr2))
+    memdb.db.exec(sql"BEGIN")
+    if indexes != []:
+        var sqlindex=subex"CREATE INDEX $1_index1 ON $1 ($','{2..});" % (@[name] & indexes)
+        # echo sqlindex
+        memdb.db.exec(sql(sqlindex))
 
 
 
 
 
 
-# import db_sqlite, math
-#
-# let theDb = open(":memory:", nil, nil, nil)
+
+
 #
 #
 # theDb.exec(sql"Drop table if exists myTestTbl;")
