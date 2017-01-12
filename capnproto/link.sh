@@ -1,1 +1,1 @@
-ln -s ../../nimscale/nimscale nimscal
+ln -s ../../nimscale/nimscale nimscale

@@ -3,7 +3,7 @@ import capnp, capnp/gensupport, collections/iface
 # file: jobs.capnp
 
 type
-  Job* = ref object of RootObj
+  Job* = ref object
     runKey*: string
     actorName*: string
     actionName*: string
@@ -80,3 +80,5 @@ makeStructCoders(Job_LogEntry, [
   (log, 0, PointerFlag.text, true),
   (tags, 1, PointerFlag.text, true)
   ], [])
+
+

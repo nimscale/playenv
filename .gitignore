@@ -6,3 +6,4 @@ local.db/
 *.so
 *.yaml
 *.json
+test

@@ -1,13 +1,13 @@
-import db
-import JobModel
+import nimscale.memsqlite as memsqlite
+import models.JobModel as model
 
 type
   JobsDB = ref object
-    db*: db.MemDB
+    index*: memsqlite.MemDB
 
-proc initDB*(): db.MemDB =
-    var memdb=db.create()
-    db.init(memdb, "mytable",
+proc initDB*(): MemDB =
+    var memdb= memsqlite.create()
+    memsqlite.init(memdb, "mytable",
          """
          Name  VARCHAR(200) NOT NULL,
          i     INT(11),
@@ -16,17 +16,19 @@ proc initDB*(): db.MemDB =
 
 proc newJobsDB*(): JobsDB  =
     #return a jobs db
-    let jobs = new(JobsDB)
-    jobs.db=initDB()
-    result = jobs
+    let db = new(JobsDB)
+    db.index=initDB()
+    result = db
+
 
 proc newJob*(): Job  =
-    let p = new(Job)
-    result = p
+    let obj = new(Job)
+    result = obj
 
-proc saveJob*(jobs:JobsDB,job:Job) =
+proc saveJob*(jobs:JobsDB,job:model.Job) =
     #save the job in the jobsdb
     jobs.db
 
-proc index*(jobs:JobsDB,job:Job) =
-    jobs.db
+
+# proc index*(jobs:JobsDB,job:Job) =
+#     jobs.db
